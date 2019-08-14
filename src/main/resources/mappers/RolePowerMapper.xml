@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiayuan.dao.RolePowerMapper">
+  <resultMap id="BaseResultMap" type="com.jiayuan.domain.RolePower">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="r_id" jdbcType="INTEGER" property="rId" />
+    <result column="p_id" jdbcType="INTEGER" property="pId" />
+  </resultMap>
+
+  <!--使用extends方式-->
+  <resultMap id="DetailMap" type="com.jiayuan.domain.RolePower" extends="BaseResultMap">
+    <association property="role" javaType="com.jiayuan.domain.Role">
+      <id property="id" column="r_id"/>
+      <result property="rname" column="r_name"/>
+    </association>
+    <collection property="power" ofType="com.jiayuan.domain.Power">
+      <id property="id" column="p_id" />
+      <result property="pname" column="p_name" />
+    </collection>
+  </resultMap>
+
+  <select id="selectPowerByRoleId" resultMap="DetailMap">
+    select *
+    from role_power rp
+    left join role r on rp.r_id=r.r_id
+    left join power p on rp.p_id=p.p_id
+    where r.r_id=#{rid}
+  </select>
+
+  <sql id="Base_Column_List">
+    id, r_id, p_id
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from role_power
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from role_power
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jiayuan.domain.RolePower">
+    insert into role_power (id, r_id, p_id)
+    values (#{id,jdbcType=INTEGER}, #{rId,jdbcType=INTEGER}, #{pId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jiayuan.domain.RolePower">
+    insert into role_power
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="rId != null">
+        r_id,
+      </if>
+      <if test="pId != null">
+        p_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="rId != null">
+        #{rId,jdbcType=INTEGER},
+      </if>
+      <if test="pId != null">
+        #{pId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jiayuan.domain.RolePower">
+    update role_power
+    <set>
+      <if test="rId != null">
+        r_id = #{rId,jdbcType=INTEGER},
+      </if>
+      <if test="pId != null">
+        p_id = #{pId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jiayuan.domain.RolePower">
+    update role_power
+    set r_id = #{rId,jdbcType=INTEGER},
+      p_id = #{pId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

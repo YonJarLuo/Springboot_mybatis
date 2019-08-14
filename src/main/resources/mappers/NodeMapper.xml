@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiayuan.domain.Node">
+
+    <resultMap id="BaseTreeResultMap" type="com.jiayuan.domain.Node">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <collection column="id" property="next" javaType="java.util.ArrayList"
+                  ofType="com.jiayuan.domain.Node" select="getNextNodeTree"/>
+    </resultMap>
+
+    <resultMap id="NextTreeResultMap" type="com.jiayuan.domain.Node">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <collection column="id" property="next" javaType="java.util.ArrayList"
+                  ofType="com.jiayuan.domain.Node" select="getNextNodeTree"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+      id, name
+    </sql>
+
+    <select id="getNextNodeTree" resultMap="NextTreeResultMap">
+      SELECT <include refid="Base_Column_List"/>
+      FROM node
+      WHERE parent_id = #{id}
+    </select>
+
+    <select id="getNodeTree" resultMap="BaseTreeResultMap">
+      SELECT <include refid="Base_Column_List"/>
+      FROM node
+      WHERE parent_id = 0
+    </select>
+
+    <!--mybatis 技术积累-->
+    <!--<insert id="" parameterType="">
+        insert into biaoming(<include refid="Base_Column_List"/>)
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userName != null ">
+                #{userName},
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="" >
+        delete from biaoming
+        where uid
+        in
+        <foreach collection="uIds" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="" parameterType="com.yonjar.domain.User">
+        update biaoming
+        <set>
+            <if test="userName != null and userName != '' ">
+                user_name = #{userName},
+            </if>
+        </set>
+        where uid = #{uId}
+    </update>
+
+    &lt;!&ndash;模糊查询 concat(a,b) 只能拼接两个，但是可以嵌套&ndash;&gt;
+    <select id="" resultMap="" parameterType="String">
+        select * from biaoming
+        where
+        userName like concat(concat('%',#{notes}),'%')
+    </select>-->
+
+
+</mapper>
