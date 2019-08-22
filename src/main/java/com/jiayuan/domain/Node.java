@@ -1,12 +1,16 @@
 package com.jiayuan.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by YonJar on 2019/7/25.
+ * 为了使用mybatis的二级缓存，实现序列化
  */
 
-public class Node {
+public class Node implements Serializable{
+    private static final long servialversionUID = 1L;
+
     //编号
     private int id;
     //名称
