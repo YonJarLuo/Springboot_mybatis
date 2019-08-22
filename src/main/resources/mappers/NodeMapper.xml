@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jiayuan.domain.Node">
+<mapper namespace="com.jiayuan.dao.NodeDao">
 
     <resultMap id="BaseTreeResultMap" type="com.jiayuan.domain.Node">
         <result column="id" property="id"/>
         <result column="name" property="name"/>
+        <result column="parentId" property="parent_id"/>
         <collection column="id" property="next" javaType="java.util.ArrayList"
                   ofType="com.jiayuan.domain.Node" select="getNextNodeTree"/>
     </resultMap>
@@ -12,6 +13,7 @@
     <resultMap id="NextTreeResultMap" type="com.jiayuan.domain.Node">
         <result column="id" property="id"/>
         <result column="name" property="name"/>
+        <result column="parentId" property="parent_id"/>
         <collection column="id" property="next" javaType="java.util.ArrayList"
                   ofType="com.jiayuan.domain.Node" select="getNextNodeTree"/>
     </resultMap>
@@ -30,7 +32,6 @@
     <select id="getNodeTree" resultMap="BaseTreeResultMap">
       SELECT <include refid="Base_Column_List"/>
       FROM node
-      WHERE parent_id = 0
     </select>
 
     <!--mybatis 技术积累-->

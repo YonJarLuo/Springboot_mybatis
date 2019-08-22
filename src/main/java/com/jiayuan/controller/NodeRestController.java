@@ -17,6 +17,7 @@ public class NodeRestController {
     @Autowired
     private NodeService nodeService;
 
+    @GetMapping("/getNodeTree")
     public List<Node> getNodeTree(){
         return nodeService.getNodeTree();
     }
