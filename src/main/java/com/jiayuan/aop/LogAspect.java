@@ -1,4 +1,4 @@
-package com.jiayuan.util;
+package com.jiayuan.aop;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;

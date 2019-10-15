@@ -1,7 +1,6 @@
 package com.jiayuan.dao;
 
 import com.jiayuan.domain.RolePower;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

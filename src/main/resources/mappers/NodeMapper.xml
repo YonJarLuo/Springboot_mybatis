@@ -7,7 +7,7 @@
         <result column="name" property="name"/>
         <result column="parentId" property="parent_id"/>
         <collection column="id" property="next" javaType="java.util.ArrayList"
-                  ofType="com.jiayuan.domain.Node" select="getNextNodeTree"/>
+                    ofType="com.jiayuan.domain.Node" select="getNextNodeTree"/>
     </resultMap>
 
     <resultMap id="NextTreeResultMap" type="com.jiayuan.domain.Node">
@@ -15,7 +15,7 @@
         <result column="name" property="name"/>
         <result column="parentId" property="parent_id"/>
         <collection column="id" property="next" javaType="java.util.ArrayList"
-                  ofType="com.jiayuan.domain.Node" select="getNextNodeTree"/>
+                    ofType="com.jiayuan.domain.Node" select="getNextNodeTree"/>
     </resultMap>
 
 
