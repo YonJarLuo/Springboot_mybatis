@@ -4,15 +4,21 @@ package com.jiayuan.domain;
  * Created by LuoYJ on 2018/7/20.
  */
 public class User {
-    private Integer id;
+    private int id;
     private String uname;
-    private Integer age;
+    private int age;
 
-    public Integer getId() {
+    public User(int id, String uname, int age) {
+        this.id = id;
+        this.uname = uname;
+        this.age = age;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -24,11 +30,11 @@ public class User {
         this.uname = uname;
     }
 
-    public Integer getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
